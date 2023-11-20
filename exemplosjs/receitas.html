@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Catálogo de Receitas</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        header {
+            background-color: gray;
+        }
+        body {
+            background-color: #ffc107;
+        }
+
+        .card {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body onload="preencheCatalogo()">
+    <header>
+        <h1>Catálogo de Receitas</h1>
+    </header>
+
+<div class="container-fluid">
+
+    <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+
+</div>
+
+<script>
+    const receitas = [
+        {
+            titulo: "Arroz de Couve-Flor",
+            imagem: "https://blogdage.com.br/wp-content/uploads/2016/08/5-DSC_0152.jpg",
+            preparo: "Deixe a couve-flor picada. Adicione os igredientes e reforgue bem. Adicione sal, tampe a panela e deixe cozinhar.",
+            ingredientes: ["Arroz", "Couve-Flor", "Cebola média", "Azeite"]
+        },
+        {
+            titulo: "Bolo de Café",
+            imagem: "https://marolacomcarambola.com.br/wp-content/uploads/2019/08/receita-de-bolo-de-cafe-com-chocolate-10.jpg",
+            preparo: "Bata o açúcar, as gemas e o café. Adicione farinha e chocolate e mexa bem. Bata as claras e junte à mistura.",
+            ingredientes: ["Farinha de Trigo", "Açúcar", "Café Coado", "Chocolate em Pó","Ovos"]
+        },
+        {
+            titulo: "Coxinha de Brigadeiro",
+            imagem: "https://i0.wp.com/porkworld.com.br/wp-content/uploads/2022/11/coxinha-de-brigadeiro-com-morango-1080x720px.png?fit=1080%2C720&ssl=1",
+            preparo: "Junte o leite condensado, chocolate em pó e manteiga. Aqueça no fogo baixo. Envolva os morangos e passe no granulado.",
+            ingredientes: ["Leite Condensado", "Chocolate em Pó", "Manteira", "Morango", "Chocolate Granulado"],
+        }
+    ];
+
+    function getListaIngredientes(receita) {
+        const listaIngredientes = `<ul>${receita.ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join('')}</ul>`;
+        return listaIngredientes;
+    }
+
+    function getCard(receita) {
+        const cardHTML = `
+            <div class="card" style="width: 250px;">
+                <img src="${receita.imagem}" class="card-img-top" alt="Imagem da Receita">
+                <div class="card-body">
+                    <h5 class="card-title">${receita.titulo}</h5>
+                    <div class="card-text">
+                        ${getListaIngredientes(receita)}
+                        <hr>
+                        <p>${receita.preparo}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        return cardHTML;
+    }
+
+    function preencheCatalogo() {
+        const pnlCatalogo = document.getElementById('pnlCatalogo');
+        const cardsHTML = receitas.map(receita => getCard(receita)).reduce((accumulator, currentValue) => accumulator + currentValue, '');
+        pnlCatalogo.innerHTML = cardsHTML;
+    }
+</script>
+
+</body>
+</html>
